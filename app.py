@@ -8,7 +8,7 @@ from aws_cdk_pipeline_demo.aws_cdk_pipeline_demo_stack import AwsCdkPipelineDemo
 
 app = cdk.App()
 AwsCdkPipelineDemoStack(app, "MyPipelineStack",
-    env=cdk.Environment(account="764246084048", region="us-east-1")
+    env=cdk.Environment(account="764246084048", region="us-east-1") #update you account and region
 )
 
 app.synth()

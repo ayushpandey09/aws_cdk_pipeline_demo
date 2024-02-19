@@ -3,7 +3,10 @@ from aws_cdk import (
     Stack,
     pipelines 
 )
+import aws_cdk as cdk
 from constructs import Construct
+from aws_cdk_pipeline_demo.my_pipeline_app_stage import MyPipelineAppStage
+from aws_cdk.pipelines import ManualApprovalStep
 
 class AwsCdkPipelineDemoStack(Stack):
 
@@ -19,3 +22,11 @@ class AwsCdkPipelineDemoStack(Stack):
                                 "cdk synth"]
                         )
                     )
+        testing_stage = pipeline.add_stage(MyPipelineAppStage(self,"testing",
+        env=cdk.Environment(account="764246084048", region="us-east-1")))
+        
+        testing_stage.add_post(ManualApprovalStep('approval to deploy to prod'))
+        
+        prod_stage = pipeline.add_stage(MyPipelineAppStage(self,"production",
+        env=cdk.Environment(account="764246084048", region="us-east-1")))
+        
